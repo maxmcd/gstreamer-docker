@@ -1,11 +1,9 @@
-FROM python:2.7.14
-# cerbero needs python 2.7.*
+FROM python:3.6.5
 
 RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     git \
     software-properties-common \
-    python-software-properties \
     yasm \
     python-setuptools \
     sudo 
@@ -27,7 +25,6 @@ RUN git config --global user.email "you@example.com"
 RUN git config --global user.name "Your Name"
 
 # # build gstreamer 1.0 from cerbero source
-# # the build commands are split so that docker can resume in case of errors
 RUN git clone --depth 1 git://anongit.freedesktop.org/gstreamer/cerbero .
 # hack: to pass "-y" argument to apt-get install launched by "cerbero bootstrap"
 RUN sed -i 's/apt-get install/apt-get install -y/g' ./cerbero/bootstrap/linux.py

@@ -15,3 +15,4 @@ images.each do |image|
 end
 
 run("docker tag maxmcd/gstreamer:1.14-buster maxmcd/gstreamer:latest")
+run("docker push maxmcd/gstreamer:latest")
