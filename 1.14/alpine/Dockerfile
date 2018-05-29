@@ -1,4 +1,4 @@
-FROM maxmcd/alpine-glibc:edge
+FROM alpine:edge
 
 RUN apk add --no-cache \
     autoconf `# libnice`\

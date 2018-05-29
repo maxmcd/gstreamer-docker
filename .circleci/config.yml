@@ -1,0 +1,17 @@
+version: 2
+
+jobs:
+  build:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: docker login
+          command: |
+           docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run:
+          name: build and push
+          command: |
+           ruby build.rb
+
