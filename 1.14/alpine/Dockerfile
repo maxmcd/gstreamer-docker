@@ -1,17 +1,21 @@
-FROM alpine:edge
+FROM maxmcd/alpine-glibc:edge
 
 RUN apk add --no-cache \
+    autoconf `# libnice`\
+    automake `# libnice`\
     bison \
     build-base \
     flex \
     gettext-dev \
     git \
     glib \
+    gnutls-dev `# libnice`\
+    gtk-doc `# libnice`\
     libffi-dev \
     libmount \
     libsrtp-dev \
+    libtool `# libnice`\
     libvpx-dev \
-    libnice-dev \
     linux-headers \
     openssl-dev `# needed for DTLS requirement`\
     opus-dev \
@@ -35,6 +39,12 @@ RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.14.0.tar.xz
     && cd gst-plugins-base-1.14.0 \
     && ./configure --prefix=/usr \
     && make \
+    && make install \
+    && cd / \
+    # libnice
+    && git clone https://github.com/libnice/libnice.git \
+    && cd libnice \
+    && ./autogen.sh --prefix=/usr --with-gstreamer --enable-static --enable-static-plugins --enable-shared --without-gstreamer-0.10 --disable-gtk-doc \
     && make install \
     && cd / \
     # gst-plugins-good
